@@ -1,50 +1,70 @@
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PySide2 import QtCore, QtWidgets, QtGui
+import sys
+
+class WebAppWindow(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Web App Testing")
+        self.resize(1280,720)
+        layout = QtWidgets.QVBoxLayout()
+        self.setLayout(layout)
 
 
-class Ui_mainWindow(object):
-    def setupUi(self, mainWindow):
-        if not mainWindow.objectName():
-            mainWindow.setObjectName(u"mainWindow")
-        mainWindow.resize(711, 381)
-        self.centralwidget = QWidget(mainWindow)
-        self.centralwidget.setObjectName(u"centralwidget")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(70, 170, 141, 23))
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(470, 170, 131, 23))
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(230, 30, 231, 51))
-        self.label.setTextFormat(Qt.AutoText)
-        self.label.setScaledContents(False)
-        self.label.setAlignment(Qt.AlignCenter)
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(230, 80, 231, 21))
-        self.label_2.setAlignment(Qt.AlignCenter)
-        mainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(mainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 711, 21))
-        mainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(mainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        mainWindow.setStatusBar(self.statusbar)
+class BinaryWindow(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Binary Testing")
+        self.resize(1280,720)
+        layout = QtWidgets.QVBoxLayout()
+        self.setLayout(layout)
 
-        self.retranslateUi(mainWindow)
-
-        QMetaObject.connectSlotsByName(mainWindow)
-    # setupUi
-
-    def retranslateUi(self, mainWindow):
-        mainWindow.setWindowTitle(QCoreApplication.translate("mainWindow", u"MainWindow", None))
-        self.pushButton.setText(QCoreApplication.translate("mainWindow", u"Web Application Testing", None))
-        self.pushButton_2.setText(QCoreApplication.translate("mainWindow", u"Binary Testing", None))
-        self.label.setText(QCoreApplication.translate("mainWindow", u"<html><head/><body><p><span style=\" font-size:18pt;\">Welcome to Warlord!</span></p></body></html>", None))
-        self.label_2.setText(QCoreApplication.translate("mainWindow", u"Please select which testing you will be doing", None))
+class CreditWindow(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Credits")
+        self.resize(800,800)
+        layout = QtWidgets.QVBoxLayout()
+        self.setLayout(layout)
 
 
+class Window(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super(Window, self).__init__(parent)
+        self.setWindowTitle("Welcome")
+        self.resize(270,110)
+        self.WebButton = QtWidgets.QPushButton("Web App Testing")
+        self.BinaryButton = QtWidgets.QPushButton("Binary Testing")
+        self.CreditButton = QtWidgets.QPushButton("Credits")
+        
+        
+        self.layout = QtWidgets.QVBoxLayout()
+        self.layout.addWidget(self.WebButton)
+        self.layout.addWidget(self.BinaryButton)
+        self.layout.addWidget(self.CreditButton)
+        self.setLayout(self.layout)
+
+        self.WebButton.clicked.connect(self.web)
+        self.BinaryButton.clicked.connect(self.binary)
+        self.CreditButton.clicked.connect(self.credit)
+
+    def binary(self):
+        self.w = BinaryWindow()
+        self.w.show()
+        self.hide()
+
+    def web(self):
+        self.w = WebAppWindow()
+        self.w.show()
+        self.hide()
+
+    def credit(self):
+        self.w = CreditWindow()
+        self.w.show()
+        self.hide()
+
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
