@@ -1,7 +1,5 @@
 # Loader
 
-from modules import makeGetRequest, retranslateUi, setupUi
+from modules import *
 
-#Load into GUI
-setupUi()
-
+gui.setupUI()

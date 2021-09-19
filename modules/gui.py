@@ -16,7 +16,20 @@ class BinaryWindow(QtWidgets.QWidget):
         self.setWindowTitle("Binary Testing")
         self.resize(1280,720)
         layout = QtWidgets.QVBoxLayout()
+
+        # file selector code
+        self.filebtn = QtWidgets.QPushButton("Select file to test")
+        self.filebtn.clicked.connect(self.getFile)
+        self.addWidget(filebtn)
+
+
         self.setLayout(layout)
+
+    def getFile(self):
+        fname = QtWidgets.QFileDialog.getOpenFileName(self, "Open File",
+        "c:\\")
+        return fname
+
 
 class CreditWindow(QtWidgets.QWidget):
     def __init__(self):
@@ -35,8 +48,7 @@ class Window(QtWidgets.QWidget):
         self.WebButton = QtWidgets.QPushButton("Web App Testing")
         self.BinaryButton = QtWidgets.QPushButton("Binary Testing")
         self.CreditButton = QtWidgets.QPushButton("Credits")
-        
-        
+               
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.WebButton)
         self.layout.addWidget(self.BinaryButton)
@@ -63,7 +75,7 @@ class Window(QtWidgets.QWidget):
         self.hide()
 
 
-if __name__ == "__main__":
+def setupUI():
     app = QtWidgets.QApplication(sys.argv)
     window = Window()
     window.show()
